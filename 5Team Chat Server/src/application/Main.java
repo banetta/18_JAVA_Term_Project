@@ -27,7 +27,7 @@ public class Main extends Application {
 
 	ServerSocket serverSocket;
 
-	// ¼­¹ö¸¦ ±¸µ¿½ÃÄÑ¼­ Å¬¶óÀÌ¾ğÆ®ÀÇ ¿¬°áÀ» ±â´Ù¸®´Â ¸Ş¼Òµå
+	// ì„œë²„ë¥¼ êµ¬ë™ì‹œì¼œì„œ í´ë¼ì´ì–¸íŠ¸ì˜ ì—°ê²°ì„ ê¸°ë‹¤ë¦¬ëŠ” ë©”ì†Œë“œ
 	public void startServer(String IP, int port) {
 		try {
 			serverSocket = new ServerSocket();
@@ -42,7 +42,7 @@ public class Main extends Application {
 			return;
 		}
 		
-		//Å¬¶óÀÌ¾ğÆ®°¡ Á¢¼ÓÇÒ¶§ ±îÁö °è¼Ó ±â´Ù¸®´Â ¾²·¹µå
+		//í´ë¼ì´ì–¸íŠ¸ê°€ ì ‘ì†í• ë•Œ ê¹Œì§€ ê³„ì† ê¸°ë‹¤ë¦¬ëŠ” ì“°ë ˆë“œ
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
@@ -50,7 +50,7 @@ public class Main extends Application {
 					try {
 						Socket socket = serverSocket.accept();
 						clients.add(new Client(socket));
-						System.out.println("[Å¬¶óÀÌ¾ğÆ® Á¢¼Ó] "
+						System.out.println("[í´ë¼ì´ì–¸íŠ¸ ì ‘ì†] "
 								+ socket.getRemoteSocketAddress()
 								+ ": " + Thread.currentThread().getName());
 					} catch (Exception e) {
@@ -66,21 +66,21 @@ public class Main extends Application {
 		threadPool.submit(thread);
 	}
 
-	// ¼­¹öÀÇ ÀÛµ¿À» ÁßÁö½ÃÅ°´Â ¸Ş¼Òµå
+	// ì„œë²„ì˜ ì‘ë™ì„ ì¤‘ì§€ì‹œí‚¤ëŠ” ë©”ì†Œë“œ
 	public void stopServer() {
 		try {
-			//ÇöÀç ÀÛµ¿ÁßÀÎ ¸ğµç ¼ÒÄÏ ´İ±â
+			//í˜„ì¬ ì‘ë™ì¤‘ì¸ ëª¨ë“  ì†Œì¼“ ë‹«ê¸°
 			Iterator<Client> iterator = clients.iterator();
 			while(iterator.hasNext()) {
 				Client client = iterator.next();
 				client.socket.close();
 				iterator.remove();
 			}
-			//¼­¹ö ¼ÒÄÏ °´Ã¼ ´İ±â
+			//ì„œë²„ ì†Œì¼“ ê°ì²´ ë‹«ê¸°
 			if(serverSocket != null && !serverSocket.isClosed()) {
 				serverSocket.close();
 			}
-			//¾²·¹µå Ç® Á¾·áÇÏ±â
+			//ì“°ë ˆë“œ í’€ ì¢…ë£Œí•˜ê¸°
 			if(threadPool !=null && !threadPool.isShutdown()) {
 				threadPool.shutdown();
 			}
@@ -89,7 +89,7 @@ public class Main extends Application {
 		}
 	}
 
-	// GUI»ı¼º ¹× ½ÇÁúÀûÀÎ ÇÁ·Î±×·¥À» µ¿ÀÛ½ÃÅ°´Â ¸Ş¼Òµå
+	// GUIìƒì„± ë° ì‹¤ì§ˆì ì¸ í”„ë¡œê·¸ë¨ì„ ë™ì‘ì‹œí‚¤ëŠ” ë©”ì†Œë“œ
 	@Override
 	public void start(Stage primaryStage) {
 		BorderPane root = new BorderPane();
@@ -97,10 +97,10 @@ public class Main extends Application {
 		
 		TextArea textArea = new TextArea();
 		textArea.setEditable(false);
-		textArea.setFont(new Font("³ª´®°íµñ", 15));
+		textArea.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", 15));
 		root.setCenter(textArea);
 		
-		Button toggleButton = new Button("¼­¹ö ½ÃÀÛÇÏ±â");
+		Button toggleButton = new Button("ì„œë²„ ì‹œì‘í•˜ê¸°");
 		toggleButton.setMaxWidth(Double.MAX_VALUE);
 		BorderPane.setMargin(toggleButton, new Insets(1, 0, 0, 0));
 		root.setBottom(toggleButton);
@@ -111,31 +111,31 @@ public class Main extends Application {
 		
 		
 		toggleButton.setOnAction(event-> {
-			if(toggleButton.getText().equals("¼­¹ö ½ÃÀÛÇÏ±â")) {
+			if(toggleButton.getText().equals("ì„œë²„ ì‹œì‘í•˜ê¸°")) {
 				startServer(IP,port);
 				Platform.runLater(() -> {
-					String message = String.format("[¼­¹ö ½ÃÀÛ]\n",  IP, port);
+					String message = String.format("[ì„œë²„ ì‹œì‘]\n",  IP, port);
 					textArea.appendText(message);
-					toggleButton.setText("¼­¹ö Á¾·áÇÏ±â");
+					toggleButton.setText("ì„œë²„ ì¢…ë£Œí•˜ê¸°");
 				});
 			} else {
 				stopServer();
 				Platform.runLater(() -> {
-					String message = String.format("[¼­¹ö Á¾·á]\n",  IP, port);
+					String message = String.format("[ì„œë²„ ì¢…ë£Œ]\n",  IP, port);
 					textArea.appendText(message);
-					toggleButton.setText("¼­¹ö ½ÃÀÛÇÏ±â");
+					toggleButton.setText("ì„œë²„ ì‹œì‘í•˜ê¸°");
 				});
 			}
 		});
 		
 		Scene scene = new Scene(root, 400, 400);
-		primaryStage.setTitle("[ Ã¤ÆÃ ¼­¹ö ]");
+		primaryStage.setTitle("[ ì±„íŒ… ì„œë²„ ]");
 		primaryStage.setOnCloseRequest(event -> stopServer());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
-	// ÇÁ·Î±×·¥ÀÇ ½ÃÀÛÁ¡
+	// í”„ë¡œê·¸ë¨ì˜ ì‹œì‘ì 
 	public static void main(String[] args) {
 		launch(args);
 	}

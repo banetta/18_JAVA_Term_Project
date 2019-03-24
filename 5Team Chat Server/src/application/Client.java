@@ -13,7 +13,7 @@ public class Client {
 		receive();
 	}
 
-	// Å¬¶óÀÌ¾ğÆ®·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ Àü´Ş¹Ş´Â ¸Ş¼Òµå
+	// í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ì „ë‹¬ë°›ëŠ” ë©”ì†Œë“œ
 	public void receive() {
 		Runnable thread = new Runnable() {
 			@Override
@@ -25,7 +25,7 @@ public class Client {
 						int length = in.read(buffer);
 						while (length == -1)
 							throw new IOException();
-						System.out.println("[¸Ş½ÃÁö ¼ö½Å ¼º°ø] " + socket.getRemoteSocketAddress() + ": "
+						System.out.println("[ë©”ì‹œì§€ ìˆ˜ì‹  ì„±ê³µ] " + socket.getRemoteSocketAddress() + ": "
 								+ Thread.currentThread().getName());
 						String message = new String(buffer, 0, length, "UTF-8");
 						for (Client client : Main.clients) {
@@ -34,7 +34,7 @@ public class Client {
 					}
 				} catch (Exception e) {
 					try {
-						System.out.println("[¸Ş½ÃÁö ¼ö½Å ¿À·ù] " + socket.getRemoteSocketAddress() + ": "
+						System.out.println("[ë©”ì‹œì§€ ìˆ˜ì‹  ì˜¤ë¥˜] " + socket.getRemoteSocketAddress() + ": "
 								+ Thread.currentThread().getName());
 					} catch (Exception e2) {
 					}
@@ -45,7 +45,7 @@ public class Client {
 
 	}
 
-	// Å¬¶óÀÌ¾ğÆ®·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ Àü¼ÛÇÏ´Â ¸Ş¼Òµå
+	// í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ì „ì†¡í•˜ëŠ” ë©”ì†Œë“œ
 	public void send(String message) {
 		Runnable thread = new Runnable() {
 
@@ -58,7 +58,7 @@ public class Client {
 				out.flush();
 				} catch (Exception e) {
 					try {
-						System.out.println("[¸Ş½ÃÁö ¼Û½Å ¿À·ù] "
+						System.out.println("[ë©”ì‹œì§€ ì†¡ì‹  ì˜¤ë¥˜] "
 								+ socket.getRemoteSocketAddress() 
 								+ ": " + Thread.currentThread().getName());
 						Main.clients.remove(Client.this);

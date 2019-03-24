@@ -42,33 +42,33 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 public class Client extends JFrame implements ActionListener, KeyListener {
 
-	// ·Î±×ÀÎ GUI º¯¼ö
+	// ë¡œê·¸ì¸ GUI ë³€ìˆ˜
 	private JFrame Login_GUI = new JFrame();
 	private JPanel Login_panel;
 
-	private JTextField textField_ip; // ip¹Ş´Â ÅØ½ºÆ® ÇÊµå
-	private JTextField textField_port; // port¹Ş´Â ÅØ½ºÆ® ÇÊµå
-	private JTextField textField_id; // ´Ğ³×ÀÓÀ» ¹Ş´Â ÅØ½ºÆ® ÇÊµå
-	private JButton button_login = new JButton("Á¢ ¼Ó");
+	private JTextField textField_ip; // ipë°›ëŠ” í…ìŠ¤íŠ¸ í•„ë“œ
+	private JTextField textField_port; // portë°›ëŠ” í…ìŠ¤íŠ¸ í•„ë“œ
+	private JTextField textField_id; // ë‹‰ë„¤ì„ì„ ë°›ëŠ” í…ìŠ¤íŠ¸ í•„ë“œ
+	private JButton button_login = new JButton("ì ‘ ì†");
 
-	// Main GUI º¯¼ö
+	// Main GUI ë³€ìˆ˜
 	private JPanel contentPane;
 	private JTextField textField_message = new JTextField();
-	private JLabel lblNewLabel = new JLabel("·Î ºñ Á¢ ¼Ó ÀÚ");
-	private JButton button_send_note = new JButton("1:1 ÂÊÁö");
-	private JButton button_join_room = new JButton("¿ÀÇÂÃ¤ÆÃ¹æ Âü¿©");
-	private JButton button_join_sroom = new JButton("ºñ¹ĞÃ¤ÆÃ¹æ Âü¿©");
-	private JButton button_create_room = new JButton("¿ÀÇÂÃ¤ÆÃ¹æ ¸¸µé±â");
-	private JButton button_create_sroom = new JButton("ºñ¹ĞÃ¤ÆÃ¹æ ¸¸µé±â");
-	private JButton button_send_message = new JButton("Àü¼Û");
-	private JButton button_modify_name = new JButton("´Ğ³×ÀÓ º¯°æ");
+	private JLabel lblNewLabel = new JLabel("ë¡œ ë¹„ ì ‘ ì† ì");
+	private JButton button_send_note = new JButton("1:1 ìª½ì§€");
+	private JButton button_join_room = new JButton("ì˜¤í”ˆì±„íŒ…ë°© ì°¸ì—¬");
+	private JButton button_join_sroom = new JButton("ë¹„ë°€ì±„íŒ…ë°© ì°¸ì—¬");
+	private JButton button_create_room = new JButton("ì˜¤í”ˆì±„íŒ…ë°© ë§Œë“¤ê¸°");
+	private JButton button_create_sroom = new JButton("ë¹„ë°€ì±„íŒ…ë°© ë§Œë“¤ê¸°");
+	private JButton button_send_message = new JButton("ì „ì†¡");
+	private JButton button_modify_name = new JButton("ë‹‰ë„¤ì„ ë³€ê²½");
 	private JList list_user = new JList();
 	private JList list_roomname = new JList();
 	private JList list_sroomname = new JList();
 	private JTextArea textArea_chat = new JTextArea();
-	private JLabel label_1 = new JLabel("Ã¤ ÆÃ Ã¢");
+	private JLabel label_1 = new JLabel("ì±„ íŒ… ì°½");
 
-	// ³×Æ®¿öÅ©¸¦ À§ÇÑ ÀÚ¿ø º¯¼ö
+	// ë„¤íŠ¸ì›Œí¬ë¥¼ ìœ„í•œ ìì› ë³€ìˆ˜
 	private Socket socket = null;
 	private String ip = "127.0.0.1";
 	private int port = 7777;
@@ -79,21 +79,21 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 	private DataOutputStream dataOutputStream;
 	private DataInputStream dataInputStream;
 
-	// ±× ¿Ü º¯¼öµé
+	// ê·¸ ì™¸ ë³€ìˆ˜ë“¤
 	private Vector vector_user_list = new Vector();
 	private Vector vector_room_list = new Vector();
 	private Vector vector_sroom_list = new Vector();
 	private StringTokenizer st;
-	private String my_room = null; // ÇöÀç ÀÚ½ÅÀÇ ¿ÀÇÂÃ¤ÆÃ¹æ ÀÌ¸§
+	private String my_room = null; // í˜„ì¬ ìì‹ ì˜ ì˜¤í”ˆì±„íŒ…ë°© ì´ë¦„
 	private String my_sroom = null;
 	private String my_sroompasswd = null;
 	private int login_enter = 0;
 	private int chat_enter = 0;
 
-	public Client() { // »ı¼ºÀÚ ¸Ş¼Òµå
+	public Client() { // ìƒì„±ì ë©”ì†Œë“œ
 		super("5Team Client");
-		Login_init(); // LoginÃ¢ È­¸é ±¸¼º ¸Ş¼Òµå
-		Main_init(); // MainÃ¢ È­¸é ±¸¼º ¸Ş¼Òµå
+		Login_init(); // Loginì°½ í™”ë©´ êµ¬ì„± ë©”ì†Œë“œ
+		Main_init(); // Mainì°½ í™”ë©´ êµ¬ì„± ë©”ì†Œë“œ
 		start(); // ACTION
 	}
 
@@ -102,15 +102,15 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception e) {
 		}
-		button_login.addActionListener(this); // ·Î±×ÀÎ ¹öÆ° ¸®½º³Ê
-		button_send_note.addActionListener(this); // 1:1 ÂÊÁö ¸®½º³Ê
-		button_join_room.addActionListener(this); // ¿ÀÇÂÃ¤ÆÃ¹æ Âü¿© ¹öÆ° ¸®½º³Ê
-		button_create_room.addActionListener(this); // ¿ÀÇÂÃ¤ÆÃ¹æ ¸¸µé±â ¹öÆ° ¸®½º³Ê
-		button_join_sroom.addActionListener(this); // ºñ¹ĞÃ¤ÆÃ¹æ Âü¿© ¹öÆ° ¸®½º³Ê
-		button_create_sroom.addActionListener(this); // ºñ¹ĞÃ¤ÆÃ¹æ ¸¸µé±â ¹öÆ° ¸®½º³Ê
-		button_send_message.addActionListener(this);// Ã¤ÆÃ Àü¼Û ¹öÆ° ¸®½º³Ê
-		button_modify_name.addActionListener(this); // ´Ğ³×ÀÓ º¯°æ ¹öÆ° ¸®½º³Ê
-		textField_message.addKeyListener(this); // ¸Ş½ÃÁö Àü¼Û ÅØ½ºÆ®ÇÊµå Å° ¸®½º³Ê
+		button_login.addActionListener(this); // ë¡œê·¸ì¸ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
+		button_send_note.addActionListener(this); // 1:1 ìª½ì§€ ë¦¬ìŠ¤ë„ˆ
+		button_join_room.addActionListener(this); // ì˜¤í”ˆì±„íŒ…ë°© ì°¸ì—¬ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
+		button_create_room.addActionListener(this); // ì˜¤í”ˆì±„íŒ…ë°© ë§Œë“¤ê¸° ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
+		button_join_sroom.addActionListener(this); // ë¹„ë°€ì±„íŒ…ë°© ì°¸ì—¬ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
+		button_create_sroom.addActionListener(this); // ë¹„ë°€ì±„íŒ…ë°© ë§Œë“¤ê¸° ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
+		button_send_message.addActionListener(this);// ì±„íŒ… ì „ì†¡ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
+		button_modify_name.addActionListener(this); // ë‹‰ë„¤ì„ ë³€ê²½ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
+		textField_message.addKeyListener(this); // ë©”ì‹œì§€ ì „ì†¡ í…ìŠ¤íŠ¸í•„ë“œ í‚¤ ë¦¬ìŠ¤ë„ˆ
 		textField_ip.addKeyListener(this);
 		textField_port.addKeyListener(this);
 		textField_id.addKeyListener(this);
@@ -129,107 +129,107 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		lblNewLabel.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		lblNewLabel.setBounds(861, 16, 140, 21);
 		contentPane.add(lblNewLabel);
 
 		list_user.setBounds(861, 52, 140, 203);
 		contentPane.add(list_user);
 		list_user.setListData(vector_user_list);
-		list_user.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		list_user.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 
 		button_send_note.setForeground(new Color(0, 0, 0));
 		button_send_note.setBackground(new Color(255, 255, 255));
-		button_send_note.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_send_note.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_send_note.setBounds(862, 266, 139, 29);
-		contentPane.add(button_send_note); // 1:1 ´ëÈ­
+		contentPane.add(button_send_note); // 1:1 ëŒ€í™”
 
-		JLabel label = new JLabel("¿ÀÇÂ Ã¤ÆÃ¹æ ¸ñ·Ï");
+		JLabel label = new JLabel("ì˜¤í”ˆ ì±„íŒ…ë°© ëª©ë¡");
 		label.setForeground(new Color(255, 255, 255));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		label.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		label.setBounds(17, 16, 200, 21);
 		contentPane.add(label);
 
 		list_roomname.setBounds(17, 52, 200, 202);
 		contentPane.add(list_roomname);
 		list_roomname.setListData(vector_room_list);
-		list_roomname.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		list_roomname.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 
 		button_join_room.setBackground(new Color(255, 255, 255));
 		button_join_room.setForeground(new Color(0, 0, 0));
-		button_join_room.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_join_room.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_join_room.setBounds(18, 266, 199, 29);
-		contentPane.add(button_join_room); // Ã¤ÆÃ¹æ Âü¿©
+		contentPane.add(button_join_room); // ì±„íŒ…ë°© ì°¸ì—¬
 
 		button_create_room.setBackground(new Color(255, 255, 255));
 		button_create_room.setForeground(new Color(0, 0, 0));
-		button_create_room.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_create_room.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_create_room.setBounds(17, 306, 200, 29);
-		contentPane.add(button_create_room); // ¹æ¸¸µé±â
+		contentPane.add(button_create_room); // ë°©ë§Œë“¤ê¸°
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(234, 52, 610, 559);
 		contentPane.add(scrollPane);
 
 		scrollPane.setViewportView(textArea_chat);
-		textArea_chat.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
-		textArea_chat.setEditable(false); // ¿ÀÇÂÃ¤ÆÃÃ¢ ¼öÁ¤ false
+		textArea_chat.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
+		textArea_chat.setEditable(false); // ì˜¤í”ˆì±„íŒ…ì°½ ìˆ˜ì • false
 
 		textField_message.setBounds(234, 629, 385, 29);
 		contentPane.add(textField_message);
 		// textField_message.setColumns(10);
-		textField_message.setEnabled(false); // ¸Ş½ÃÁö ¹öÆ° false
-		textField_message.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		textField_message.setEnabled(false); // ë©”ì‹œì§€ ë²„íŠ¼ false
+		textField_message.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 
 		button_send_message.setForeground(new Color(0, 0, 0));
 		button_send_message.setBackground(new Color(255, 255, 255));
-		button_send_message.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_send_message.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_send_message.setBounds(626, 629, 76, 29);
 		contentPane.add(button_send_message);
-		button_send_message.setEnabled(false); // º¸³»±â¹öÆ° false
+		button_send_message.setEnabled(false); // ë³´ë‚´ê¸°ë²„íŠ¼ false
 
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setForeground(Color.WHITE);
-		label_1.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		label_1.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		label_1.setBounds(234, 17, 610, 21);
 		contentPane.add(label_1);
 
 		button_create_sroom.setForeground(Color.BLACK);
-		button_create_sroom.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_create_sroom.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_create_sroom.setBackground(Color.WHITE);
 		button_create_sroom.setBounds(17, 622, 200, 29);
 		contentPane.add(button_create_sroom);
 
-		JLabel label_2 = new JLabel("ºñ¹ĞÃ¤ÆÃ¹æ ¸ñ·Ï");
+		JLabel label_2 = new JLabel("ë¹„ë°€ì±„íŒ…ë°© ëª©ë¡");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setForeground(Color.WHITE);
-		label_2.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		label_2.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		label_2.setBounds(17, 350, 200, 21);
 		contentPane.add(label_2);
 
-		list_sroomname.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		list_sroomname.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		list_sroomname.setValueIsAdjusting(true);
 		list_sroomname.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list_sroomname.setBounds(17, 386, 200, 185);
 		contentPane.add(list_sroomname);
 
 		button_join_sroom.setForeground(Color.BLACK);
-		button_join_sroom.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_join_sroom.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_join_sroom.setBackground(Color.WHITE);
 		button_join_sroom.setBounds(17, 582, 200, 29);
 		contentPane.add(button_join_sroom);
 
 		button_modify_name.setForeground(new Color(0, 0, 0));
 		button_modify_name.setBackground(new Color(255, 255, 255));
-		button_modify_name.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_modify_name.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_modify_name.setBounds(709, 629, 136, 29);
 		// button_modify_name.setEnabled(false);
 		contentPane.add(button_modify_name);
 		this.setVisible(false);
 	}
 
-	private void Login_init() { // ·Î±×ÀÎ GUI
+	private void Login_init() { // ë¡œê·¸ì¸ GUI
 
 		Login_GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -243,18 +243,18 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		Login_GUI.setContentPane(Login_panel);
 		Login_panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Á¢¼ÓÇÒ ¼­¹öIP");
+		JLabel lblNewLabel = new JLabel("ì ‘ì†í•  ì„œë²„IP");
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		lblNewLabel.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		lblNewLabel.setBounds(17, 98, 152, 21);
 		Login_panel.add(lblNewLabel);
 
-		JLabel lblPort = new JLabel("Á¢¼ÓÇÒ Port¹øÈ£");
+		JLabel lblPort = new JLabel("ì ‘ì†í•  Portë²ˆí˜¸");
 		lblPort.setForeground(Color.WHITE);
 		lblPort.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPort.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		lblPort.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		lblPort.setBounds(17, 156, 152, 21);
 		Login_panel.add(lblPort);
 
@@ -262,12 +262,12 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		textField_ip.setBounds(182, 96, 229, 27);
 		Login_panel.add(textField_ip);
 		textField_ip.setColumns(10);
-		textField_ip.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		textField_ip.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 
 		textField_port = new JTextField();
 		textField_port.setColumns(10);
 		textField_port.setBounds(182, 154, 229, 27);
-		textField_port.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		textField_port.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		Login_panel.add(textField_port);
 
 		JLabel lblteamChatServer = new JLabel("5Team Chat Program");
@@ -275,43 +275,43 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		lblteamChatServer.setIcon(new ImageIcon(
 				"D:\\\uB300\uD559\uC790\uB8CC\\2\uD559\uB1442\uD559\uAE30\\\uC790\uBC14\\\uD300 \uD504\uB85C\uC81D\uD2B8\\\uBA54\uC2E0\uC800\uC544\uC774\uCF582.jfif"));
 		lblteamChatServer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblteamChatServer.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 24));
+		lblteamChatServer.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 24));
 		lblteamChatServer.setBounds(17, 15, 394, 68);
 		Login_panel.add(lblteamChatServer);
 
-		JLabel label = new JLabel("´Ğ³×ÀÓ");
+		JLabel label = new JLabel("ë‹‰ë„¤ì„");
 		label.setForeground(Color.WHITE);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		label.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		label.setBounds(17, 214, 152, 21);
 		Login_panel.add(label);
 
 		textField_id = new JTextField();
 		textField_id.setColumns(10);
 		textField_id.setBounds(182, 212, 229, 27);
-		textField_id.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		textField_id.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		Login_panel.add(textField_id);
 
 		button_login.setForeground(new Color(0, 0, 0));
 		button_login.setBackground(new Color(255, 255, 255));
-		button_login.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
+		button_login.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 18));
 		button_login.setBounds(155, 264, 125, 29);
 		Login_panel.add(button_login);
 
 		Login_GUI.setVisible(true);
-		// true = È­¸é¿¡ º¸ÀÌ°Ô
+		// true = í™”ë©´ì— ë³´ì´ê²Œ
 	}
 
 	private void network() {
 		try {
 			socket = new Socket(ip, port);
-			if (socket != null) { // Á¤»óÀûÀ¸·Î ¼ÒÄÏÀÌ ¿¬°áµÇ¾úÀ» °æ¿ì
+			if (socket != null) { // ì •ìƒì ìœ¼ë¡œ ì†Œì¼“ì´ ì—°ê²°ë˜ì—ˆì„ ê²½ìš°
 				connection();
 			}
 		} catch (UnknownHostException e) {
-			JOptionPane.showMessageDialog(null, "¿¬°á ½ÇÆĞ", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ì—°ê²° ì‹¤íŒ¨", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "¿¬°á ½ÇÆĞ", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ì—°ê²° ì‹¤íŒ¨", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -321,14 +321,14 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 			dataInputStream = new DataInputStream(inputStream);
 			outputStream = socket.getOutputStream();
 			dataOutputStream = new DataOutputStream(outputStream);
-		} catch (IOException e) { // ¿¹¿Ü Ã³¸® ºÎºĞ
-			JOptionPane.showMessageDialog(null, "¿¬°á ½ÇÆĞ", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
-		} // Stream ¼³Á¤ ³¡
-		this.setVisible(true); // main ui Ç¥½Ã
+		} catch (IOException e) { // ì˜ˆì™¸ ì²˜ë¦¬ ë¶€ë¶„
+			JOptionPane.showMessageDialog(null, "ì—°ê²° ì‹¤íŒ¨", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
+		} // Stream ì„¤ì • ë
+		this.setVisible(true); // main ui í‘œì‹œ
 		this.Login_GUI.setVisible(false);
 		login_enter = 1;
-		send_message(id); // Ã³À½ Á¢¼Ó½Ã ´Ğ³×ÀÓ Àü¼Û
-		vector_user_list.add("[³ª] " + id); // »ç¿ëÀÚ º¤ÅÍ ¸®½ºÆ®¿¡ »ç¿ëÀÚ Ãß°¡
+		send_message(id); // ì²˜ìŒ ì ‘ì†ì‹œ ë‹‰ë„¤ì„ ì „ì†¡
+		vector_user_list.add("[ë‚˜] " + id); // ì‚¬ìš©ì ë²¡í„° ë¦¬ìŠ¤íŠ¸ì— ì‚¬ìš©ì ì¶”ê°€
 		Thread thread = new Thread(new Socket_thread());
 		thread.start();
 
@@ -348,7 +348,7 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 						dataOutputStream.close();
 						socket.close();
 
-						JOptionPane.showMessageDialog(null, "¼­¹ö¿Í Á¢¼Ó ²÷¾îÁü", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ì„œë²„ì™€ ì ‘ì† ëŠì–´ì§", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					} catch (IOException e1) {
 					}
 					break;
@@ -358,20 +358,20 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		}
 	}
 
-	private void InMessage(String str) { // ¼­¹ö·Î ºÎÅÍ µé¾î¿À´Â ¸ğµç ¸Ş½ÃÁö
+	private void InMessage(String str) { // ì„œë²„ë¡œ ë¶€í„° ë“¤ì–´ì˜¤ëŠ” ëª¨ë“  ë©”ì‹œì§€
 		st = new StringTokenizer(str, "/");
 		String protocol = st.nextToken();
 		String message = st.nextToken();
-		System.out.println("ÇÁ·ÎÅäÄİ : " + protocol);
-		System.out.println("³»¿ë : " + message);
+		System.out.println("í”„ë¡œí† ì½œ : " + protocol);
+		System.out.println("ë‚´ìš© : " + message);
 
-		if (protocol.equals("NewUser")) { // »õ·Î¿î Á¢¼ÓÀÚ
+		if (protocol.equals("NewUser")) { // ìƒˆë¡œìš´ ì ‘ì†ì
 			vector_user_list.add(message);
 		} else if (protocol.equals("NewName")) {
 			for (int i = 0; i < vector_user_list.size(); i++) {
-				if (vector_user_list.get(i).equals("[³ª] " + message)) {
+				if (vector_user_list.get(i).equals("[ë‚˜] " + message)) {
 					String nn = st.nextToken();
-					vector_user_list.set(i, "[³ª] " + nn);
+					vector_user_list.set(i, "[ë‚˜] " + nn);
 				} else if (vector_user_list.get(i).equals(message)) {
 					String nn = st.nextToken();
 					vector_user_list.set(i, nn);
@@ -383,31 +383,31 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 			vector_user_list.add(message);
 		} else if (protocol.equals("Note")) {
 			String note = st.nextToken();
-			System.out.println(message + " »ç¿ëÀÚ¿¡°Ô ¿Â ¸Ş½ÃÁö " + note);
+			System.out.println(message + " ì‚¬ìš©ìì—ê²Œ ì˜¨ ë©”ì‹œì§€ " + note);
 			String note2 = null;
 			while (note2 == null || note2.equals("")) {
 				note2 = JOptionPane.showInputDialog(message + " : " + note); // inputdialog
 				if (note2 == null) {
-					JOptionPane.showMessageDialog(null, "ÂÊÁö ´äÀå Àü¼ÛÀ» Ãë¼ÒÇÏ¼Ì½À´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ìª½ì§€ ë‹µì¥ ì „ì†¡ì„ ì·¨ì†Œí•˜ì…¨ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else if (note2.equals(""))
-					JOptionPane.showMessageDialog(null, "ÂÊÁö ´äÀå³»¿ëÀ» ÀÔ·ÂÇÏ½Ã¿À.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ìª½ì§€ ë‹µì¥ë‚´ìš©ì„ ì…ë ¥í•˜ì‹œì˜¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 			}
 			if (note2 != null) {
 				send_message("Note/" + message + "/" + note2);
 			}
-			System.out.println("¹Ş´Â»ç¶÷ : " + message + " | º¸³¾ ³»¿ë : " + note2); // support
+			System.out.println("ë°›ëŠ”ì‚¬ëŒ : " + message + " | ë³´ë‚¼ ë‚´ìš© : " + note2); // support
 			// dialog
 		} else if (protocol.equals("user_list_update")) {
 			list_user.setListData(vector_user_list);
-		} else if (protocol.equals("CreateRoom")) { // ¿ÀÇÂÃ¤ÆÃ¹æÀ» ¸¸µé¾úÀ» ¶§
+		} else if (protocol.equals("CreateRoom")) { // ì˜¤í”ˆì±„íŒ…ë°©ì„ ë§Œë“¤ì—ˆì„ ë•Œ
 			my_room = message;
-			JOptionPane.showMessageDialog(null, "Ã¤ÆÃ¹æ¿¡ ÀÔÀåÇß½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ì±„íŒ…ë°©ì— ì…ì¥í–ˆìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 
-		} else if (protocol.equals("CreateRoomFail")) { // ¿ÀÇÂÃ¤ÆÃ¹æ ¸¸µé±â ½ÇÆĞÇÏ¿´À» °æ¿ì
-			JOptionPane.showMessageDialog(null, "¹æ ¸¸µé±â ½ÇÆĞ", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
-		} else if (protocol.equals("NewRoom")) { // »õ·Î¿î ¿ÀÇÂÃ¤ÆÃ¹æÀ» ¸¸µé¾úÀ» ¶§
-			// lblNewLabel.setText("¹æ Á¢ ¼Ó ÀÚ");
+		} else if (protocol.equals("CreateRoomFail")) { // ì˜¤í”ˆì±„íŒ…ë°© ë§Œë“¤ê¸° ì‹¤íŒ¨í•˜ì˜€ì„ ê²½ìš°
+			JOptionPane.showMessageDialog(null, "ë°© ë§Œë“¤ê¸° ì‹¤íŒ¨", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
+		} else if (protocol.equals("NewRoom")) { // ìƒˆë¡œìš´ ì˜¤í”ˆì±„íŒ…ë°©ì„ ë§Œë“¤ì—ˆì„ ë•Œ
+			// lblNewLabel.setText("ë°© ì ‘ ì† ì");
 			vector_room_list.add(message);
 			list_roomname.setListData(vector_room_list);
 		} else if (protocol.equals("OldRoom")) {
@@ -417,21 +417,21 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		} else if (protocol.equals("JoinRoom")) {
 			my_room = message;
 
-			JOptionPane.showMessageDialog(null, "Ã¤ÆÃ¹æ¿¡ ÀÔÀåÇß½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ì±„íŒ…ë°©ì— ì…ì¥í–ˆìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 			chat_enter = 1;
 
 		} else if (protocol.equals("ExitRoom")) {
 
-			textField_message.setEnabled(false); // ¸Ş½ÃÁö ¹öÆ° false
+			textField_message.setEnabled(false); // ë©”ì‹œì§€ ë²„íŠ¼ false
 			vector_room_list.remove(message);
 
-		} ////////////////////////// ºñ¹Ğ
-		else if (protocol.equals("CreatesRoom")) { // ºñ¹ĞÃ¤ÆÃ¹æÀ» ¸¸µé¾úÀ» ¶§
+		} ////////////////////////// ë¹„ë°€
+		else if (protocol.equals("CreatesRoom")) { // ë¹„ë°€ì±„íŒ…ë°©ì„ ë§Œë“¤ì—ˆì„ ë•Œ
 			my_sroom = message;
-			JOptionPane.showMessageDialog(null, "Ã¤ÆÃ¹æ¿¡ ÀÔÀåÇß½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ì±„íŒ…ë°©ì— ì…ì¥í–ˆìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 
-		} else if (protocol.equals("NewsRoom")) { // »õ·Î¿î ºñ¹ĞÃ¤ÆÃ¹æÀ» ¸¸µé¾úÀ» ¶§
-			// lblNewLabel.setText("¹æ Á¢ ¼Ó ÀÚ");
+		} else if (protocol.equals("NewsRoom")) { // ìƒˆë¡œìš´ ë¹„ë°€ì±„íŒ…ë°©ì„ ë§Œë“¤ì—ˆì„ ë•Œ
+			// lblNewLabel.setText("ë°© ì ‘ ì† ì");
 			vector_sroom_list.add(message);
 			list_sroomname.setListData(vector_sroom_list);
 		} else if (protocol.equals("OldsRoom")) {
@@ -445,17 +445,17 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 				my_sroom = st.nextToken();
 				textField_message.setEnabled(false);
 				// vector_sroom_list.remove(my_sroom);
-				JOptionPane.showMessageDialog(null, "¹æ ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ë°© ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 				send_message("ExitsRoom/" + my_sroom);
 				my_sroom = null;
 				my_sroompasswd = null;
 				return;
 			}
-			JOptionPane.showMessageDialog(null, "Ã¤ÆÃ¹æ¿¡ ÀÔÀåÇß½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ì±„íŒ…ë°©ì— ì…ì¥í–ˆìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 			chat_enter = 2;
 
 		} else if (protocol.equals("ExitsRoom")) {
-			textField_message.setEnabled(false); // ¸Ş½ÃÁö ¹öÆ° false
+			textField_message.setEnabled(false); // ë©”ì‹œì§€ ë²„íŠ¼ false
 			vector_sroom_list.remove(message);
 		} else if (protocol.equals("Chatting")) {
 			String msg = st.nextToken();
@@ -464,7 +464,7 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 			vector_user_list.remove(message);
 		} else if (protocol.equals("Modify_Name")) {
 			String mod = st.nextToken();
-			System.out.println(message + "´ÔÀÌ " + mod + "·Î  ´Ğ³×ÀÓÀ» º¯°æÇÏ¿´½À´Ï´Ù.\n");
+			System.out.println(message + "ë‹˜ì´ " + mod + "ë¡œ  ë‹‰ë„¤ì„ì„ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.\n");
 			list_user.setListData(vector_user_list);
 		}
 	}
@@ -486,10 +486,10 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		return null;
 	}
 
-	private void send_message(String message) { // ¼­¹ö¿¡°Ô ¸Ş½ÃÁö¸¦ º¸³»´Â ºÎºĞ
+	private void send_message(String message) { // ì„œë²„ì—ê²Œ ë©”ì‹œì§€ë¥¼ ë³´ë‚´ëŠ” ë¶€ë¶„
 		try {
 			dataOutputStream.writeUTF(message);
-		} catch (IOException e) { // ¿¡·¯ Ã³¸® ºÎºĞ
+		} catch (IOException e) { // ì—ëŸ¬ ì²˜ë¦¬ ë¶€ë¶„
 			e.printStackTrace();
 		}
 	}
@@ -499,20 +499,20 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == button_login) { // button_login = ·Î±×ÀÎ ¹öÆ°
-			System.out.println("·Î±×ÀÎ ½Ãµµ");
+		if (e.getSource() == button_login) { // button_login = ë¡œê·¸ì¸ ë²„íŠ¼
+			System.out.println("ë¡œê·¸ì¸ ì‹œë„");
 			if (textField_ip.getText().length() == 0) {
-				textField_ip.setText("IP¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				textField_ip.setText("IPë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				textField_ip.requestFocus();
 			} else if (textField_port.getText().length() == 0) {
-				textField_port.setText("Port¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				textField_port.setText("Portë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				textField_port.requestFocus();
 			} else if (textField_id.getText().length() == 0) {
-				textField_id.setText("´Ğ³×ÀÓÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				textField_id.setText("ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				textField_id.requestFocus();
 			} else {
-				ip = textField_ip.getText().trim(); // ip¸¦ ¹Ş¾Æ¿À´Â ºÎºĞ
-				port = Integer.parseInt(textField_port.getText().trim()); // intÇüÀ¸·Î Çüº¯È¯
+				ip = textField_ip.getText().trim(); // ipë¥¼ ë°›ì•„ì˜¤ëŠ” ë¶€ë¶„
+				port = Integer.parseInt(textField_port.getText().trim()); // intí˜•ìœ¼ë¡œ í˜•ë³€í™˜
 				id = textField_id.getText().trim();
 				network();
 				login_enter = 1;
@@ -521,49 +521,49 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 			System.out.println("send_note");
 			String user = (String) list_user.getSelectedValue();
 			if (user == null) {
-				JOptionPane.showMessageDialog(null, "º¸³¾ ´ë»óÀ» ¼±ÅÃÇÏ½Ã¿À.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ë³´ë‚¼ ëŒ€ìƒì„ ì„ íƒí•˜ì‹œì˜¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if (user.equals("[³ª] " + id)) {
-				JOptionPane.showMessageDialog(null, "ÀÚ½Å¿¡°Ô´Â ÂÊÁö¸¦ º¸³¾ ¼ö ¾ø½À´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+			if (user.equals("[ë‚˜] " + id)) {
+				JOptionPane.showMessageDialog(null, "ìì‹ ì—ê²ŒëŠ” ìª½ì§€ë¥¼ ë³´ë‚¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			String note = null;
 			while (note == null || note.equals("")) {
-				note = JOptionPane.showInputDialog(user + "¿¡°Ô º¸³¾ ¸Ş½ÃÁö"); // inputdialog
+				note = JOptionPane.showInputDialog(user + "ì—ê²Œ ë³´ë‚¼ ë©”ì‹œì§€"); // inputdialog
 				if (note == null) {
-					JOptionPane.showMessageDialog(null, "ÂÊÁö Àü¼ÛÀ» Ãë¼ÒÇÏ¼Ì½À´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ìª½ì§€ ì „ì†¡ì„ ì·¨ì†Œí•˜ì…¨ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else if (note.equals(""))
-					JOptionPane.showMessageDialog(null, "ÂÊÁö ³»¿ëÀ» ÀÔ·ÂÇÏ½Ã¿À.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ìª½ì§€ ë‚´ìš©ì„ ì…ë ¥í•˜ì‹œì˜¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 			}
 			if (note != null) {
-				send_message("Note/" + user + "/" + note); // ex) Note/User2/³ª´Â User1ÀÌ¾ß
+				send_message("Note/" + user + "/" + note); // ex) Note/User2/ë‚˜ëŠ” User1ì´ì•¼
 			}
-			System.out.println("¹Ş´Â»ç¶÷ : " + user + " | º¸³¾ ³»¿ë : " + note);
+			System.out.println("ë°›ëŠ”ì‚¬ëŒ : " + user + " | ë³´ë‚¼ ë‚´ìš© : " + note);
 		} else if (e.getSource() == button_join_room) {
 			String JoinRoom = (String) list_roomname.getSelectedValue();
 
 			if (my_room != null) {
 				if (my_room.equals(JoinRoom)) {
-					JOptionPane.showMessageDialog(null, "ÇöÀç Ã¤ÆÃ¹æÀÔ´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "í˜„ì¬ ì±„íŒ…ë°©ì…ë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else {
-					JOptionPane.showMessageDialog(null, "ÀÌ¹Ì Ã¤ÆÃ¹æ¿¡ Á¢¼ÓÁßÀÔ´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ì´ë¯¸ ì±„íŒ…ë°©ì— ì ‘ì†ì¤‘ì…ë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				// send_message("ExitRoom/" + my_room);
 				// chat_enter = 0;
 				// textArea_chat.setText("");
 			} else if (JoinRoom == null) {
-				JOptionPane.showMessageDialog(null, "¼±ÅÃÇÑ Ã¤ÆÃ¹æÀÌ ¾ø½À´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ì„ íƒí•œ ì±„íŒ…ë°©ì´ ì—†ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 			} else {
 				send_message("JoinRoom/" + JoinRoom);
-				label_1.setText("Ã¤ ÆÃ Ã¢ [" + JoinRoom + "]");
-				lblNewLabel.setText("·Î ºñ Á¢ ¼Ó ÀÚ");
+				label_1.setText("ì±„ íŒ… ì°½ [" + JoinRoom + "]");
+				lblNewLabel.setText("ë¡œ ë¹„ ì ‘ ì† ì");
 				button_create_sroom.setEnabled(false);
 				button_join_sroom.setEnabled(false);
-				button_create_room.setText("¿ÀÇÂÃ¤ÆÃ¹æ ³ª°¡±â");
+				button_create_room.setText("ì˜¤í”ˆì±„íŒ…ë°© ë‚˜ê°€ê¸°");
 				button_send_message.setEnabled(true);
 				// button_modify_name.setEnabled(true);
 				textField_message.setEnabled(true);
@@ -575,12 +575,12 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 			String roomname = null;
 			if (my_room == null) {
 				while (roomname == null || roomname.equals("")) {
-					roomname = JOptionPane.showInputDialog("¹æ ÀÌ¸§");
+					roomname = JOptionPane.showInputDialog("ë°© ì´ë¦„");
 					if (roomname == null) {
-						JOptionPane.showMessageDialog(null, "¹æ¸¸µé±â¸¦ Ãë¼ÒÇÏ¼Ì½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ë°©ë§Œë“¤ê¸°ë¥¼ ì·¨ì†Œí•˜ì…¨ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					} else if (roomname.equals("")) {
-						JOptionPane.showMessageDialog(null, "¹æ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ã¿À.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ë°© ì´ë¦„ì„ ì…ë ¥í•˜ì‹œì˜¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
@@ -592,23 +592,23 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 				// button_modify_name.setEnabled(true);
 				textField_message.setEnabled(true);
 				button_login.setEnabled(false);
-				button_create_room.setText("¿ÀÇÂÃ¤ÆÃ¹æ ³ª°¡±â");
+				button_create_room.setText("ì˜¤í”ˆì±„íŒ…ë°© ë‚˜ê°€ê¸°");
 				button_create_sroom.setEnabled(false);
 				button_join_sroom.setEnabled(false);
-				label_1.setText("Ã¤ ÆÃ Ã¢ [" + roomname + "]");
-				lblNewLabel.setText("·Î ºñ Á¢ ¼Ó ÀÚ");
+				label_1.setText("ì±„ íŒ… ì°½ [" + roomname + "]");
+				lblNewLabel.setText("ë¡œ ë¹„ ì ‘ ì† ì");
 			} else {
 				send_message("ExitRoom/" + my_room);
 				textField_message.setText("");
 				textArea_chat.setText("");
-				JOptionPane.showMessageDialog(null, "Ã¤ÆÃ¹æ¿¡¼­ ÅğÀåÇß½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ì±„íŒ…ë°©ì—ì„œ í‡´ì¥í–ˆìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 				button_send_message.setEnabled(false);
 				// button_modify_name.setEnabled(false);
 				my_room = null;
 				chat_enter = 0;
-				lblNewLabel.setText("·Î ºñ  Á¢ ¼Ó ÀÚ");
-				label_1.setText("Ã¤ ÆÃ Ã¢");
-				button_create_room.setText("¿ÀÇÂÃ¤ÆÃ¹æ ¸¸µé±â");
+				lblNewLabel.setText("ë¡œ ë¹„  ì ‘ ì† ì");
+				label_1.setText("ì±„ íŒ… ì°½");
+				button_create_room.setText("ì˜¤í”ˆì±„íŒ…ë°© ë§Œë“¤ê¸°");
 				button_create_sroom.setEnabled(true);
 				button_join_sroom.setEnabled(true);
 
@@ -617,13 +617,13 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		} else if (e.getSource() == button_send_message) {
 			System.out.println("send_message");
 			if (my_room == null && my_sroom == null) {
-				JOptionPane.showMessageDialog(null, "Ã¤ÆÃ¹æ¿¡ Âü¿©ÇØÁÖ¼¼¿ä", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ì±„íŒ…ë°©ì— ì°¸ì—¬í•´ì£¼ì„¸ìš”", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 				return;
 			} else if (my_room != null || my_sroom != null) {
-				// Ã¤ÆÃ + ¿ÀÇÂÃ¤ÆÃ¹æ ÀÌ¸§ + ³»¿ë
+				// ì±„íŒ… + ì˜¤í”ˆì±„íŒ…ë°© ì´ë¦„ + ë‚´ìš©
 				String temp = textField_message.getText().trim();
 				if (temp.equals("")) {
-					textField_id.setText("º¸³¾ Ã¤ÆÃ¸Ş½ÃÁö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+					textField_id.setText("ë³´ë‚¼ ì±„íŒ…ë©”ì‹œì§€ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 					textField_message.setText("");
 					textField_message.requestFocus();
 
@@ -638,22 +638,22 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 				}
 			}
 		} else if (e.getSource() == button_modify_name) {
-			System.out.println("modify_name"); // ´Ğ³×ÀÓ º¯°æ
+			System.out.println("modify_name"); // ë‹‰ë„¤ì„ ë³€ê²½
 			String name = null;
 			while (name == null || name.equals("")) {
-				name = JOptionPane.showInputDialog("º¯°æÇÒ ´Ğ³×ÀÓÀ» ÀÔ·ÂÇÏ½Ã¿À.");
+				name = JOptionPane.showInputDialog("ë³€ê²½í•  ë‹‰ë„¤ì„ì„ ì…ë ¥í•˜ì‹œì˜¤.");
 				if (name == null) {
-					JOptionPane.showMessageDialog(null, "´Ğ³×ÀÓ º¯°æÀ» Ãë¼ÒÇÏ¼Ì½À´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ë‹‰ë„¤ì„ ë³€ê²½ì„ ì·¨ì†Œí•˜ì…¨ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else if (name.equals(""))
-					JOptionPane.showMessageDialog(null, "º¯°æÇÒ ´Ğ³×ÀÓÀ» ÀÔ·ÂÇÏ½Ã¿À.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ë³€ê²½í•  ë‹‰ë„¤ì„ì„ ì…ë ¥í•˜ì‹œì˜¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 				else {
 					for (int i = 0; i < vector_user_list.size(); i++) {
-						if (vector_user_list.get(i).equals("[³ª] " + name)) {
-							JOptionPane.showMessageDialog(null, "ÇöÀç ´Ğ³×ÀÓ°ú °°½À´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+						if (vector_user_list.get(i).equals("[ë‚˜] " + name)) {
+							JOptionPane.showMessageDialog(null, "í˜„ì¬ ë‹‰ë„¤ì„ê³¼ ê°™ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 							return;
 						} else if (vector_user_list.get(i).equals(name)) {
-							JOptionPane.showMessageDialog(null, "ÀÌ¹Ì Á¸ÀçÇÏ´Â ´Ğ³×ÀÓÀÔ´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë‹‰ë„¤ì„ì…ë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 							return;
 						}
 					}
@@ -666,31 +666,31 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 				System.out.println(vector_user_list.elementAt(0));
 			}
 		}
-		/////////////// ºñ¹Ğ//////
+		/////////////// ë¹„ë°€//////
 		else if (e.getSource() == button_join_sroom) {
 			String JoinsRoom = (String) list_sroomname.getSelectedValue();
 
 			if (my_sroom != null) {
 				if (my_sroom.equals(JoinsRoom)) {
-					JOptionPane.showMessageDialog(null, "ÇöÀç Ã¤ÆÃ¹æÀÔ´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "í˜„ì¬ ì±„íŒ…ë°©ì…ë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else {
-					JOptionPane.showMessageDialog(null, "ÀÌ¹Ì Ã¤ÆÃ¹æ¿¡ Á¢¼ÓÁßÀÔ´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ì´ë¯¸ ì±„íŒ…ë°©ì— ì ‘ì†ì¤‘ì…ë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				// send_message("ExitRoom/" + my_room);
 				// chat_enter = 0;
 				// textArea_chat.setText("");
 			} else if (JoinsRoom == null) {
-				JOptionPane.showMessageDialog(null, "¼±ÅÃÇÑ Ã¤ÆÃ¹æÀÌ ¾ø½À´Ï´Ù.", "¾Ë¸²", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ì„ íƒí•œ ì±„íŒ…ë°©ì´ ì—†ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.ERROR_MESSAGE);
 			} else if (my_sroompasswd == null) {
-				my_sroompasswd = JOptionPane.showInputDialog("¹æ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ã¿À.");
+				my_sroompasswd = JOptionPane.showInputDialog("ë°© ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹œì˜¤.");
 				send_message("JoinsRoom/" + JoinsRoom + "/" + my_sroompasswd);
-				label_1.setText("Ã¤ ÆÃ Ã¢ [" + JoinsRoom + "]");
+				label_1.setText("ì±„ íŒ… ì°½ [" + JoinsRoom + "]");
 				button_create_room.setEnabled(false);
 				button_join_room.setEnabled(false);
-				lblNewLabel.setText("·Î ºñ Á¢ ¼Ó ÀÚ");
-				button_create_sroom.setText("ºñ¹ĞÃ¤ÆÃ¹æ ³ª°¡±â");
+				lblNewLabel.setText("ë¡œ ë¹„ ì ‘ ì† ì");
+				button_create_sroom.setText("ë¹„ë°€ì±„íŒ…ë°© ë‚˜ê°€ê¸°");
 				button_send_message.setEnabled(true);
 				textField_message.setEnabled(true);
 				System.out.println("join_sroom");
@@ -699,34 +699,34 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 			String sroomname = null;
 			if (my_sroom == null) {
 				while (sroomname == null || sroomname.equals("")) {
-					sroomname = JOptionPane.showInputDialog("¹æ ÀÌ¸§");
+					sroomname = JOptionPane.showInputDialog("ë°© ì´ë¦„");
 					if (sroomname == null) {
-						JOptionPane.showMessageDialog(null, "¹æ¸¸µé±â¸¦ Ãë¼ÒÇÏ¼Ì½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ë°©ë§Œë“¤ê¸°ë¥¼ ì·¨ì†Œí•˜ì…¨ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					} else if (sroomname.equals("")) {
-						JOptionPane.showMessageDialog(null, "¹æ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ã¿À.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ë°© ì´ë¦„ì„ ì…ë ¥í•˜ì‹œì˜¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
 			if (my_sroompasswd == null) {
 				while (my_sroompasswd == null || my_sroompasswd.equals("")) {
-					my_sroompasswd = JOptionPane.showInputDialog("¹æ ºñ¹Ğ¹øÈ£");
+					my_sroompasswd = JOptionPane.showInputDialog("ë°© ë¹„ë°€ë²ˆí˜¸");
 					if (my_sroompasswd == null) {
-						JOptionPane.showMessageDialog(null, "¹æ¸¸µé±â¸¦ Ãë¼ÒÇÏ¼Ì½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ë°©ë§Œë“¤ê¸°ë¥¼ ì·¨ì†Œí•˜ì…¨ìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					} else if (my_sroompasswd.equals("")) {
-						JOptionPane.showMessageDialog(null, "¹æ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ã¿À.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ë°© ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹œì˜¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
 			if (sroomname != null && my_sroompasswd != null) {
 				send_message("CreatesRoom/" + sroomname + "/" + my_sroompasswd);
 				chat_enter = 2;
-				button_create_sroom.setText("ºñ¹ĞÃ¤ÆÃ¹æ ³ª°¡±â");
+				button_create_sroom.setText("ë¹„ë°€ì±„íŒ…ë°© ë‚˜ê°€ê¸°");
 				button_create_room.setEnabled(false);
 				button_join_room.setEnabled(false);
-				label_1.setText("Ã¤ ÆÃ Ã¢ [" + sroomname + "]");
-				lblNewLabel.setText("·Î ºñ Á¢ ¼Ó ÀÚ");
+				label_1.setText("ì±„ íŒ… ì°½ [" + sroomname + "]");
+				lblNewLabel.setText("ë¡œ ë¹„ ì ‘ ì† ì");
 				button_send_message.setEnabled(true);
 				// button_modify_name.setEnabled(true);
 				textField_message.setEnabled(true);
@@ -736,13 +736,13 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 				button_send_message.setEnabled(false);
 				textField_message.setText("");
 				textArea_chat.setText("");
-				JOptionPane.showMessageDialog(null, "Ã¤ÆÃ¹æ¿¡¼­ ÅğÀåÇß½À´Ï´Ù.", "¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ì±„íŒ…ë°©ì—ì„œ í‡´ì¥í–ˆìŠµë‹ˆë‹¤.", "ì•Œë¦¼", JOptionPane.INFORMATION_MESSAGE);
 				my_sroom = null;
 				my_sroompasswd = null;
 				chat_enter = 0;
-				lblNewLabel.setText("·Î ºñ  Á¢ ¼Ó ÀÚ");
-				label_1.setText("Ã¤ ÆÃ Ã¢");
-				button_create_sroom.setText("ºñ¹ĞÃ¤ÆÃ¹æ ¸¸µé±â");
+				lblNewLabel.setText("ë¡œ ë¹„  ì ‘ ì† ì");
+				label_1.setText("ì±„ íŒ… ì°½");
+				button_create_sroom.setText("ë¹„ë°€ì±„íŒ…ë°© ë§Œë“¤ê¸°");
 				button_create_room.setEnabled(true);
 				button_join_room.setEnabled(true);
 
@@ -752,25 +752,25 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 
 	}
 
-	public void keyPressed(KeyEvent arg0) { // ´­·¶À» ¶§
+	public void keyPressed(KeyEvent arg0) { // ëˆŒë €ì„ ë•Œ
 	}
 
-	public void keyReleased(KeyEvent e) { // ´­·¶´Ù ¶®À» ¶§
+	public void keyReleased(KeyEvent e) { // ëˆŒë €ë‹¤ ë• ì„ ë•Œ
 
 		if (e.getKeyCode() == 10 && login_enter == 0) { // enter
-			System.out.println("·Î±×ÀÎ ½Ãµµ");
+			System.out.println("ë¡œê·¸ì¸ ì‹œë„");
 			if (textField_ip.getText().length() == 0) {
-				textField_ip.setText("IP¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				textField_ip.setText("IPë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				textField_ip.requestFocus();
 			} else if (textField_port.getText().length() == 0) {
-				textField_port.setText("Port¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				textField_port.setText("Portë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				textField_port.requestFocus();
 			} else if (textField_id.getText().length() == 0) {
-				textField_id.setText("´Ğ³×ÀÓÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				textField_id.setText("ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				textField_id.requestFocus();
 			} else {
-				ip = textField_ip.getText().trim(); // ip¸¦ ¹Ş¾Æ¿À´Â ºÎºĞ
-				port = Integer.parseInt(textField_port.getText().trim()); // intÇüÀ¸·Î Çüº¯È¯
+				ip = textField_ip.getText().trim(); // ipë¥¼ ë°›ì•„ì˜¤ëŠ” ë¶€ë¶„
+				port = Integer.parseInt(textField_port.getText().trim()); // intí˜•ìœ¼ë¡œ í˜•ë³€í™˜
 				id = textField_id.getText().trim();
 				network();
 				login_enter = 1;
@@ -780,7 +780,7 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		if (e.getKeyCode() == 10 && (chat_enter == 1 || chat_enter == 2)) { // enter && chat_enter == 1
 			String temp = textField_message.getText().trim();
 			if (temp.equals("")) {
-				textField_id.setText("º¸³¾ Ã¤ÆÃ¸Ş½ÃÁö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				textField_id.setText("ë³´ë‚¼ ì±„íŒ…ë©”ì‹œì§€ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				textField_message.requestFocus();
 			} else if (chat_enter == 1) {
 				send_message("Chatting/" + my_room + "/" + textField_message.getText().trim());
@@ -794,7 +794,7 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 		}
 	}
 
-	public void keyTyped(KeyEvent arg0) { // Å¸ÀÌÇÎ
+	public void keyTyped(KeyEvent arg0) { // íƒ€ì´í•‘
 
 	}
 
